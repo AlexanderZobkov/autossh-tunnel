@@ -1,0 +1,27 @@
+# autossh-tunnel
+
+.~/.ssh/config
+```shell
+Host ssh-tunnel
+  HostName CHANGE_ME
+  Port CHANGE_ME
+  User CHANGE_ME
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
+  StrictHostKeyChecking no
+  ExitOnForwardFailure yes
+  LogLevel DEBUG3
+  BatchMode yes
+  # Add ports forwarding
+  RemoteForward CHANGE_ME CHANGE_ME:CHANGE_ME
+  LocalForward CHANGE_ME CHANGE_ME:CHANGE_ME
+```
+
+```shell
+AUTOSSH_GATETIME=0 AUTOSSH_DEBUG=1 autossh -M 0 -N ssh-tunnel 2>&1 | gawk '{ print strftime("[%Y-%m-%d %H:%M:%S]"), $0; system("") }'  
+```
+
+TODO:
+
+. Document passwordless ssh 
+. Document autossh as service on linux and windows (cygwin)
